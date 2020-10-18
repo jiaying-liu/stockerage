@@ -103,7 +103,7 @@ async function startServer () {
 		app.use('/sse-notifications', cors(corsCheck), authJWT, sseNotifications)
 		app.use('/stocks', cors(corsCheck), authJWT, stocks)
 
-		app.listen(5000, () => {
+		app.listen(process.env.PORT || 5000, () => {
 			console.log('Server running on PORT 5000')
 		})
 
