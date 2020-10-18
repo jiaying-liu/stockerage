@@ -85,6 +85,7 @@ async function startServer () {
 			return callback(new Error('CORS error'))
 		}
 
+		app.set('trust proxy', 1)
 		app.use(express.json())
 		app.use(cookieParser())
 

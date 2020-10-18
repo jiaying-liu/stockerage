@@ -6,18 +6,17 @@ import { promisify } from 'util'
 let stocks: Symbol[] = []
 
 async function getStocks (req: Request, res: Response, next: NextFunction) {
-	// try {
+	try {
 		if (!stocks.length) {
 			console.log('getting stocks')
 			stocks = await symbols()
-			console.log('stocks are', stocks)
 		}
 
 		res.json(stocks)
-	// } catch (error) {
-	// 	console.error(`Error while fetching stocks: ${error.message}`)
-	// 	next(error)
-	// }
+	} catch (error) {
+		console.error(`Error while fetching stocks: ${error.message}`)
+		next(error)
+	}
 }
 
 async function getStockBySymbol (req: Request, res: Response, next: NextFunction) {
