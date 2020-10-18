@@ -40,11 +40,14 @@ export default function Login () {
 	}
 
 	return (
-		<div>
-			<h1>Stock Market Simulator</h1>
+		<div style={{ textAlign: 'center', marginTop: '96px' }}>
+			<h1>Stockerage</h1>
+			<h3>
+				Welcome to Stockerage, a paper trading platform where you can similuate the act of buying and selling stocks
+			</h3>
 			<GoogleLogin
 				clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-				buttonText='Login with Google'
+				buttonText='Login/Signup with Google'
 				onSuccess={onGoogleSuccess}
 				onFailure={onGoogleFailure}
 				cookiePolicy='single_host_origin'

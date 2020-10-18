@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import {
 	IconButton,
@@ -12,6 +12,7 @@ import { logoutCurrentUser } from '@/actions/current-user'
 
 export default function Account () {
 	const [anchorEl, setAnchorEl] = useState(null)
+	const currentUser = useSelector(state => state.currentUser)
 	const dispatch = useDispatch()
 	const history = useHistory()
 
@@ -50,6 +51,7 @@ export default function Account () {
 				}}
 				onClose={onMenuClose}
 			>
+				<MenuItem>{currentUser.name}</MenuItem>
 				<MenuItem onClick={onLogoutClick}>Logout</MenuItem>
 			</Menu>
 		</div>
