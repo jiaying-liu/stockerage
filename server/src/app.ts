@@ -38,7 +38,9 @@ async function startServer () {
 			username: process.env.DATABASE_USERNAME,
 			password: process.env.DATABASE_PASSWORD,
 			port: Number(process.env.DATABASE_PORT),
-			synchronize: process.env.NODE_ENV === 'development',
+			synchronize: true, // TODO: need this to be set to true in order for db to sync
+			// with entities. May need to find a way to disable this in production as it could
+			// cause data loss.
 			logging: ['error', 'warn'],
 			entities: ['build/entities/**/*.js'],
 			migrations: ['build/migrations/**/*.js'],
