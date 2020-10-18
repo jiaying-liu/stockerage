@@ -34,6 +34,12 @@
       "typeorm": "0.2.25"
    },
    "scripts": {
-      "start": "nodemon src/app.ts"
-   }
+			"start:dev": "nodemon src/app.ts",
+			"build": "tsc",
+			"postinstall": "tsc",
+			"start": "node build/app.js"
+	 },
+	 "engines": {
+			"node": "10.14.1"
+	 }
 }

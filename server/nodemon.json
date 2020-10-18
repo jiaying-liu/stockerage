@@ -5,6 +5,6 @@
 	},
 	"ext": "ts",
 	"execMap": {
-		"ts": "ts-node"
+		"ts": "tsc && node build/app.js"
 	}
 }

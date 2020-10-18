@@ -40,9 +40,9 @@ async function startServer () {
 			port: Number(process.env.DATABASE_PORT),
 			synchronize: process.env.NODE_ENV === 'development',
 			logging: ['error', 'warn'],
-			entities: ['src/entities/**/*.ts'],
-			migrations: ['src/migrations/**/*.ts'],
-			subscribers: ['src/subscribers/**/*.ts'],
+			entities: ['build/entities/**/*.js'],
+			migrations: ['build/migrations/**/*.js'],
+			subscribers: ['build/subscribers/**/*.js'],
 			cli: {
 				entitiesDir: 'src/entities',
 				migrationsDir: 'src/migrations',
