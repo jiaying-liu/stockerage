@@ -34,7 +34,7 @@ async function postUserMarketSells (req: Request, res: Response, next: NextFunct
 		marketSell = await marketSell.save()
 
 		// If during market hours, immediately execute trade. Otherwise, wait until next trading day
-		if (!isMarketHour()) {
+		if (isMarketHour()) {
 			await marketSell.executeTrade()
 		}
 

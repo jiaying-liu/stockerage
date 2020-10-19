@@ -13,6 +13,7 @@ import StockDetail from '@/components/StockDetail'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { teal } from '@material-ui/core/colors'
 import Header from './components/Header'
+import HttpsRedirect from 'react-https-redirect'
 
 const theme = createMuiTheme({
 	palette: {
@@ -25,20 +26,22 @@ const store = createStore(reducers, {}, applyMiddleware(reduxThunk))
 
 function App() {
   return (
-		<Provider store={store}>
-			<ThemeProvider theme={theme}>
-				<Router>
-					<Header />
-					<Container style={{ paddingBottom: '64px' }}>
-						<Switch>
-							<Route exact path='/login' component={Login} />
-							<Route exact path='/' component={Home} />
-							<Route exact path='/stocks/:symbol' component={StockDetail} />
-						</Switch>
-					</Container>
-				</Router>
-			</ThemeProvider>
-		</Provider>
+		<HttpsRedirect>
+			<Provider store={store}>
+				<ThemeProvider theme={theme}>
+					<Router>
+						<Header />
+						<Container style={{ paddingBottom: '64px' }}>
+							<Switch>
+								<Route exact path='/login' component={Login} />
+								<Route exact path='/' component={Home} />
+								<Route exact path='/stocks/:symbol' component={StockDetail} />
+							</Switch>
+						</Container>
+					</Router>
+				</ThemeProvider>
+			</Provider>
+		</HttpsRedirect>
   )
 }
 

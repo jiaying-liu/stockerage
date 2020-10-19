@@ -34,7 +34,7 @@ async function postUserMarketBuys (req: Request, res: Response, next: NextFuncti
 		marketBuy.user = user
 		marketBuy.datetime = new Date().toISOString()
 
-		if (!isMarketHour()) {
+		if (isMarketHour()) {
 			marketBuy = await marketBuy.save()
 			await marketBuy.executeTrade()
 		} else {
