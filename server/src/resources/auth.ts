@@ -37,7 +37,12 @@ async function login (req: express.Request, res: express.Response, next: express
 		session.user = user
 		await session.save()
 
-		res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: process.env.NODE_ENV === 'production', maxAge: 60 * 60 * 24 * 365 * 1000 })
+		res.cookie('refreshToken', refreshToken, {
+			httpOnly: true,
+			secure: process.env.NODE_ENV === 'production',
+			maxAge: 60 * 60 * 24 * 365 * 1000,
+			domain: process.env.COOKIE_DOMAIN
+		})
 		res.json({ accessToken })
 	} catch (error) {
 		console.error(`Cannot verify token with Google: ${error.message}`)

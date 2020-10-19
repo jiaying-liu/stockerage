@@ -43,7 +43,7 @@ export default function Login () {
 		<div style={{ textAlign: 'center', marginTop: '96px' }}>
 			<h1>Stockerage</h1>
 			<h3>
-				Welcome to Stockerage, a paper trading platform where you can similuate the act of buying and selling stocks
+				Welcome to Stockerage, a paper trading platform where you can simulate the act of buying and selling stocks
 			</h3>
 			<GoogleLogin
 				clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
