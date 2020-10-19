@@ -1,4 +1,5 @@
 require('dotenv').config()
+require('newrelic')
 
 import "reflect-metadata";
 import { createConnection } from "typeorm";

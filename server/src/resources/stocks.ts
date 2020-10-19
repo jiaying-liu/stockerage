@@ -8,7 +8,6 @@ let stocks: Symbol[] = []
 async function getStocks (req: Request, res: Response, next: NextFunction) {
 	try {
 		if (!stocks.length) {
-			console.log('getting stocks')
 			stocks = await symbols()
 		}
 

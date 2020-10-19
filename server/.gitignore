@@ -5,3 +5,5 @@ build/
 tmp/
 temp/
 .env
+newrelic.js
+newrelic_agent.log
