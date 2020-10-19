@@ -41,7 +41,8 @@ async function login (req: express.Request, res: express.Response, next: express
 			httpOnly: true,
 			secure: process.env.NODE_ENV === 'production',
 			maxAge: 60 * 60 * 24 * 365 * 1000,
-			domain: process.env.COOKIE_DOMAIN
+			domain: process.env.COOKIE_DOMAIN,
+			sameSite: 'none'
 		})
 		res.json({ accessToken })
 	} catch (error) {
