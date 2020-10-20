@@ -5,7 +5,7 @@ export function isMarketHour () {
 	console.log('now is ', now.format('YYYY-MM-DD HH:mm'))
 	const openHour = moment(`${now.format('YYYY-MM-DD')} 09:30`, 'YYYY-MM-DD HH:mm', 'America/New_York')
 	console.log('open hour is', openHour.format('YYYY-MM-DD HH:mm'))
-	const closeHour = moment(`${now.format('YYYY-MM-DD')} 16:00`, 'YYYY-MM-DD HH:mm', 'America/New_York')
+	const closeHour = moment(`${now.format('YYYY-MM-DD')} 23:59`, 'YYYY-MM-DD HH:mm', 'America/New_York')
 	console.log('close hour is', closeHour.format('YYYY-MM-DD HH:mm'))
 
 	const value = now.day() >= 1 && now.day() <= 5 && now.isBetween(openHour, closeHour, undefined, '[)')
