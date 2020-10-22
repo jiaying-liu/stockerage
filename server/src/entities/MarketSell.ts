@@ -25,7 +25,7 @@ export default class MarketSell extends Order {
 		const stockQuote = await quote(this.stockSymbol)
 		const price = stockQuote.latestPrice
 		const value = this.quantity * price
-		const user = this.user
+		const user = await User.findById(this.user.id)
 		const stock = (await Stock.findBySymbolForUser(user.id, this.stockSymbol))[0]
 
 		if (!stock || stock.quantity < this.quantity) {

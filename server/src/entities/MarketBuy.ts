@@ -26,7 +26,7 @@ export default class MarketBuy extends Order {
 		const stockQuote = await quote(stockSymbol)
 		const price = stockQuote.latestPrice
 		const value = quantity * price
-		const user = this.user
+		const user = await User.findById(this.user.id)
 	
 		if (user.balance < value) {
 			this.status = 'canceled'

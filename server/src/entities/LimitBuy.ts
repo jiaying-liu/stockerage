@@ -38,18 +38,19 @@ export default class LimitBuy extends Order {
 		}
 
 		const value = this.quantity * stockPrice
+		const user = await User.findById(this.user.id)
 
-		if (this.user.balance < value) {
+		if (user.balance < value) {
 			this.status = 'canceled'
 			await this.save()
 			throw new Error('User does not have enough funds to make order')
 		}
 
-		let stock = (await Stock.findBySymbolForUser(this.user.id, this.stockSymbol))[0]
+		let stock = (await Stock.findBySymbolForUser(user.id, this.stockSymbol))[0]
 
 		if (!stock) {
 			stock = new Stock()
-			stock.user = this.user
+			stock.user = user
 			stock.symbol = this.stockSymbol
 			stock.quantity = 0
 			stock.avgCost = 0
@@ -57,8 +58,8 @@ export default class LimitBuy extends Order {
 
 		stock.addShares(stockPrice, this.quantity)
 		await stock.save()
-		this.user.balance -= value
-		await this.user.save()
+		user.balance -= value
+		await user.save()
 		this.status = 'filled'
 		this.value = value
 		
