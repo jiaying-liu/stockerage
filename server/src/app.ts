@@ -34,11 +34,7 @@ async function startServer () {
 	try {
 		const connection = await createConnection({
 			type: 'postgres',
-			host: process.env.DATABASE_HOST,
-			database: process.env.DATABASE,
-			username: process.env.DATABASE_USERNAME,
-			password: process.env.DATABASE_PASSWORD,
-			port: Number(process.env.DATABASE_PORT),
+			url: process.env.DATABASE_URL,
 			synchronize: true, // TODO: need this to be set to true in order for db to sync
 			// with entities. May need to find a way to disable this in production as it could
 			// cause data loss.
