@@ -7,27 +7,30 @@ import LimitSell from '../entities/LimitSell'
 export async function executePendingMarketBuys () {
 	const marketBuys = await MarketBuy.findPendingOrders()
 
-	marketBuys.forEach(async marketBuy => {
+	for (let i = 0; i < marketBuys.length; i++) {
+		const marketBuy = marketBuys[i];
 		try {
-			await marketBuy.executeTrade()
+			await marketBuy.executeTrade();
 		} catch (error) {
-			console.error(`Error while executing market buy: ${error.message}`)
-			marketBuy.cancel()
+			console.error(`Error while executing market buy: ${error.message}`);
+			marketBuy.cancel();
 		}
-	})
+	}
 }
 
 export async function executePendingMarketSells () {
-	const marketSells = await MarketSell.findPendingOrders()
+	const marketSells = await MarketSell.findPendingOrders();
 
-	marketSells.forEach(async marketSell => {
+	for (let i = 0; i < marketSells.length; i++) {
+		const marketSell = marketSells[i];
+
 		try {
-			await marketSell.executeTrade()
+			await marketSell.executeTrade();
 		} catch (error) {
-			console.error(`Error while executing market sell: ${error.message}`)
-			marketSell.cancel()
+			console.error(`Error while executing market sell: ${error.message}`);
+			marketSell.cancel();
 		}
-	})
+	}
 }
 
 async function executeLimitOrder (limitOrder: LimitBuy | LimitSell, stockToPriceMap: { [stock: string]: number }) {
@@ -62,8 +65,13 @@ export async function executePendingLimitOrders () {
 		[stock: string]: number
 	})
 
-	limitBuys.forEach(async limitBuy => executeLimitOrder(limitBuy, stockToPriceMap))
-	limitSells.forEach(async limitSell => executeLimitOrder(limitSell, stockToPriceMap))
+	for (let i = 0; i < limitBuys.length; i++) {
+		await executeLimitOrder(limitBuys[i], stockToPriceMap);
+	}
+	
+	for (let i = 0; i < limitSells.length; i++) {
+		await executeLimitOrder(limitSells[i], stockToPriceMap);
+	}
 }
 
 export async function cancelPendingLimitOrders () {
