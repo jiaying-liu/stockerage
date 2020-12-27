@@ -35,6 +35,15 @@ export default class Stock extends BaseEntity {
 		return this.createQueryBuilder('stock').where('stock.user = :userId', { userId }).getMany()
 	}
 
+	static async findAllUserOwnedStocks () {
+		const stocks = await this.createQueryBuilder('stock')
+			.distinctOn(['symbol'])
+			.where('stock.quantity > 0')
+			.getMany();
+		
+		return stocks.map(stock => stock.symbol);
+	}
+
 	addShares (stockPrice: number, quantity: number) {
 		const currentTotalCost = this.avgCost * this.quantity
 

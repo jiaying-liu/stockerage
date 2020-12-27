@@ -10,6 +10,7 @@ import PortfolioCloseValue from "./PortfolioCloseValue";
 import { quote } from "../services";
 import Notification from "./Notification";
 import WatchListStock from "./WatchListStock";
+import Dividend from "./Dividend";
 
 @Entity()
 export default class User extends BaseEntity {
@@ -57,6 +58,9 @@ export default class User extends BaseEntity {
 
 	@OneToMany(() => WatchListStock, watchListStock => watchListStock.user)
 	watchListStocks: WatchListStock[]
+
+	@OneToMany(() => Dividend, dividend => dividend.user)
+	dividends: Dividend[];
 
   static findById (id: number) {
 		return this.createQueryBuilder('user').where('user.id = :id', { id }).getOne()
