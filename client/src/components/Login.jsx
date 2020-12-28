@@ -1,5 +1,8 @@
 import React, { useEffect, useCallback } from 'react'
 import { GoogleLogin } from 'react-google-login'
+import { IconButton } from '@material-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
 import api, { setAccessToken } from '@/api'
 import { useHistory } from 'react-router-dom'
@@ -52,6 +55,17 @@ export default function Login () {
 				onFailure={onGoogleFailure}
 				cookiePolicy='single_host_origin'
 			/>
+			<div style={{ paddingTop: '16px' }}>
+				<a
+					href="https://github.com/jiaying-liu/stockerage"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					<IconButton style={{ color: 'black' }}>
+						<FontAwesomeIcon icon={faGithub} size="2x" />
+					</IconButton>
+				</a>
+			</div>
 		</div>
 	)
 }
