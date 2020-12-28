@@ -13,6 +13,7 @@ import StockSearchBar from './header/StockSearchBar'
 import Notification from './header/Notification'
 import Account from './header/Account'
 import { Link } from 'react-router-dom'
+import GithubLink from './header/GithubLink'
 
 const useStyles = makeStyles(theme => ({
 	searchBar: {
@@ -63,14 +64,9 @@ export default function Header () {
 				</div>
 				<div style={{ flexGrow: 1 }} />
 				<div className={classes.iconSection}>
-					{/* <IconButton
-						color='inherit'
-						style={{ marginRight: '8px' }}
-					>
-						<FontAwesomeIcon
-							icon={faBell}
-						/>
-					</IconButton> */}
+					<div style={{ marginRight: '8px' }}>
+						<GithubLink />
+					</div>
 					<div style={{ marginRight: '8px' }}>
 						<Notification />
 					</div>
