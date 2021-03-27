@@ -65,6 +65,18 @@ export default class Notification extends BaseEntity {
 			.getMany()
 	}
 
+	static createNewNotification(title: string, content: string, stockSymbol: string, user: User) {
+		let notification = new Notification();
+
+		notification.status = 'unopened';
+		notification.title = title;
+		notification.content = content;
+		notification.stock = stockSymbol;
+		notification.user = user;
+
+		return notification.save();
+	}
+
 	static async createMarketBuyFilledNotification (marketBuy: MarketBuy): Promise<Notification> {
 		if (marketBuy.status !== 'filled') {
 			throw new Error('Market Buy has not been filled')
@@ -100,6 +112,19 @@ export default class Notification extends BaseEntity {
 		notification = await notification.save()
 
 		return notification
+	}
+
+	static async createMarketSellPlacedNotification (marketSell: MarketSell) {
+		if (marketSell.status !== 'pending') {
+			throw new Error('Market Sell should be pending');
+		}
+
+		return this.createNewNotification(
+			`${marketSell.stockSymbol} Market Sell Order Placed`,
+			`Your Market Sell Order of ${marketSell.stockSymbol} has been placed. It will be executed after the market opens at the next available price`,
+			marketSell.stockSymbol,
+			marketSell.user
+		);
 	}
 
 	static async createMarketSellFilledNotification (marketSell: MarketSell) {

@@ -2,6 +2,7 @@ import { Request, Response, NextFunction, Router } from "express";
 import User from "../entities/User";
 import MarketSell from "../entities/MarketSell";
 import { isMarketHour } from "../helpers/time";
+import Notification from "../entities/Notification";
 
 async function getUserMarketSells (req: Request, res: Response, next: NextFunction) {
 	try {
@@ -31,11 +32,20 @@ async function postUserMarketSells (req: Request, res: Response, next: NextFunct
 		marketSell.quantity = quantity
 		marketSell.user = user
 		marketSell.datetime = new Date().toISOString()
-		marketSell = await marketSell.save()
 
 		// If during market hours, immediately execute trade. Otherwise, wait until next trading day
 		if (isMarketHour()) {
+			marketSell = await marketSell.save();
 			await marketSell.executeTrade()
+		} else {
+			const isMarketSellValid = await marketSell.isOrderValid();
+
+			if (!isMarketSellValid) {
+				throw new Error('User does not have enough shares to cover market sell order');
+			}
+
+			marketSell = await marketSell.save();
+			Notification.createMarketSellPlacedNotification(marketSell);
 		}
 
 		res.json({

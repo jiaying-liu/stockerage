@@ -54,4 +54,16 @@ export default class MarketSell extends Order {
 
 		return marketSell
 	}
+
+	async isOrderValid() {
+		const stocks = (await Stock.findBySymbolForUser(this.user.id, this.stockSymbol));
+
+		if (!stocks.length) {
+			return false;
+		}
+
+		const stock = stocks[0];
+
+		return stock.quantity >= this.quantity;
+	}
 }
